@@ -1,0 +1,106 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+
+<dom-module id="my-new-view">
+
+    <!-- Defines the element's style and local DOM -->
+    <template>
+        <style>
+            :host {
+                display: block;
+                padding: 16px;
+            }
+
+            paper-slider#red {
+                --paper-slider-knob-color: var(--paper-red-500);
+                --paper-slider-active-color: var(--paper-red-500);
+            }
+
+            paper-slider#green {
+                --paper-slider-knob-color: var(--paper-green-500);
+                --paper-slider-active-color: var(--paper-green-500);
+            }
+
+            paper-slider#blue {
+                --paper-slider-knob-color: var(--paper-light-blue-500);
+                --paper-slider-active-color: var(--paper-light-blue-500);
+            }
+
+            ::shadow .slider-input {
+                width: 80px;
+            }
+
+            :host paper-slider {
+                width: 400px;
+            }
+
+            ::shadow ::shadow #progressContainer {
+                background: #000000;
+            }
+
+            h3 {
+                color: green;
+                font-size: 50px;
+                font-weight: 600;
+            }
+
+            .result {
+                width: 100px;
+                height: 100px;
+                background-color: rgba(50, 50, 50, 1);
+                margin: 0 0 50px 20px;
+            }
+
+            p {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+        <h1>My new page</h1>
+
+        <h3>Hello))</h3>
+
+        <div class="result"></div>
+        <p id="redV"></p>
+
+        <p id="greenV"></p>
+
+        <p id="blueV"></p>
+
+        <p>R</p>
+        <paper-slider value-change id="red" min="0" max="255" value="50" editable></paper-slider>
+        <p>G</p>
+        <paper-slider value-change id="green" min="0" max="255" value="50" editable></paper-slider>
+        <p>B</p>
+        <paper-slider value-change id="blue" min="0" max="255" value="50" editable></paper-slider>
+    </template>
+
+    <!-- Creates the element's prototype and registers it -->
+    <script>
+        Polymer({
+            is: 'my-new-view',
+            properties: {
+                route: Object
+            }
+        });
+    </script>
+    <script>
+        console.log("1");
+        document.addEventListener('WebComponentsReady', function () {
+            var red = document.querySelector('#red'),
+                    green = document.querySelector('#green'),
+                    blue = document.querySelector('#blue');
+            console.log("2");
+            red.addEventListener('change', function () {
+                console.log("3");
+                document.querySelector('#redV').textContent = red.value;
+            });
+            green.addEventListener('change', function () {
+                document.querySelector('#greenV').textContent = green.value;
+            });
+            blue.addEventListener('change', function () {
+                document.querySelector('#blueV').textContent = blue.value;
+            });
+        });
+    </script>
+</dom-module>
