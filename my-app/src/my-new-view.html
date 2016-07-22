@@ -44,7 +44,7 @@
                 font-weight: 600;
             }
 
-            .result {
+            #result {
                 width: 100px;
                 height: 100px;
                 background-color: rgba(50, 50, 50, 1);
@@ -60,47 +60,37 @@
 
         <h3>Hello))</h3>
 
-        <div class="result"></div>
-        <p id="redV"></p>
+        <div id="result"></div>
+        <p id="redV">50</p>
 
-        <p id="greenV"></p>
+        <p id="greenV">50</p>
 
-        <p id="blueV"></p>
+        <p id="blueV">50</p>
 
         <p>R</p>
-        <paper-slider value-change id="red" min="0" max="255" value="50" editable></paper-slider>
+        <paper-slider id="red" min="0" max="255" value="50" editable></paper-slider>
         <p>G</p>
-        <paper-slider value-change id="green" min="0" max="255" value="50" editable></paper-slider>
+        <paper-slider id="green" min="0" max="255" value="50" editable></paper-slider>
         <p>B</p>
-        <paper-slider value-change id="blue" min="0" max="255" value="50" editable></paper-slider>
+        <paper-slider id="blue" min="0" max="255" value="50" editable></paper-slider>
     </template>
 
     <!-- Creates the element's prototype and registers it -->
     <script>
         Polymer({
             is: 'my-new-view',
-            properties: {
+            /*properties: {
                 route: Object
+            },*/
+            listeners: {
+                'change': 'colorChanging'
+            },
+            colorChanging: function(){
+                this.$.result.style.backgroundColor = 'rgba(' + this.$.red.value + ',' + this.$.green.value + ',' + this.$.blue.value + ',' + 1 + ')';
+                this.$.redV.textContent = this.$.red.value;
+                this.$.greenV.textContent = this.$.green.value;
+                this.$.blueV.textContent = this.$.blue.value;
             }
-        });
-    </script>
-    <script>
-        console.log("1");
-        document.addEventListener('WebComponentsReady', function () {
-            var red = document.querySelector('#red'),
-                    green = document.querySelector('#green'),
-                    blue = document.querySelector('#blue');
-            console.log("2");
-            red.addEventListener('change', function () {
-                console.log("3");
-                document.querySelector('#redV').textContent = red.value;
-            });
-            green.addEventListener('change', function () {
-                document.querySelector('#greenV').textContent = green.value;
-            });
-            blue.addEventListener('change', function () {
-                document.querySelector('#blueV').textContent = blue.value;
-            });
         });
     </script>
 </dom-module>
