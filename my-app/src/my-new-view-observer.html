@@ -1,0 +1,117 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+
+<dom-module id="my-new-view-observer">
+
+    <!-- Defines the element's style and local DOM -->
+    <template>
+        <style>
+            :host {
+                display: block;
+                padding: 16px;
+            }
+
+            paper-slider#red {
+                --paper-slider-knob-color: var(--paper-red-500);
+                --paper-slider-active-color: var(--paper-red-500);
+            }
+
+            paper-slider#green {
+                --paper-slider-knob-color: var(--paper-green-500);
+                --paper-slider-active-color: var(--paper-green-500);
+            }
+
+            paper-slider#blue {
+                --paper-slider-knob-color: var(--paper-light-blue-500);
+                --paper-slider-active-color: var(--paper-light-blue-500);
+            }
+
+            ::shadow .slider-input {
+                width: 80px;
+            }
+
+            :host paper-slider {
+                width: 400px;
+            }
+
+            ::shadow ::shadow #progressContainer {
+                background: #000000;
+            }
+
+            h3 {
+                color: green;
+                font-size: 25px;
+                font-weight: 600;
+                margin: 10px;
+            }
+
+            #result {
+                width: 100px;
+                height: 100px;
+                background-color: rgba(50, 50, 50, 1);
+                margin: 0 0 20px 20px;
+            }
+
+            p {
+                margin: 0;
+                padding: 0;
+            }
+            #reset{
+                width: 100px;
+                height: 25px;
+            }
+        </style>
+        <h1>Kov picker observer</h1>
+
+        <h3>Hello))</h3>
+
+        <div id="result"></div>
+        <p>[[red]]</p>
+
+        <p>[[green]]</p>
+
+        <p>[[blue]]</p>
+
+        <p>R</p>
+        <paper-slider id="red" min="0" max="255" value="{{red}}" editable></paper-slider>
+        <p>G</p>
+        <paper-slider id="green" min="0" max="255" value="{{green}}" editable></paper-slider>
+        <p>B</p>
+        <paper-slider id="blue" min="0" max="255" value="{{blue}}" editable></paper-slider>
+        <button id="reset">RESET</button>
+    </template>
+
+    <!-- Creates the element's prototype and registers it -->
+    <script>
+        Polymer({
+            is: 'my-new-view-observer',
+            properties: {
+                red: {
+                    type: Number,
+                    value: 50
+                },
+                green: {
+                    type: Number,
+                    value: 50
+                },
+                blue: {
+                    type: Number,
+                    value: 50
+                }
+            },
+            listeners: {
+                'change': 'colorChanging',
+                'reset.tap': 'resetColors'
+            },
+            colorChanging: function(){
+                this.$.result.style.backgroundColor = 'rgb(' + this.$.red.value + ',' + this.$.green.value + ',' + this.$.blue.value + ')';
+            },
+            resetColors: function(){
+                this.red = 50;
+                this.green = 50;
+                this.blue = 50;
+                this.colorChanging();
+            }
+        });
+    </script>
+</dom-module>

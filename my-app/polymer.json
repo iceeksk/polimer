@@ -6,6 +6,7 @@
     "src/my-view2.html",
     "src/my-view3.html",
     "src/my-new-view.html",
-    "src/my-gradient-maker.html"
+    "src/my-gradient-maker.html",
+    "src/my-new-view-observer.html"
   ]
 }
