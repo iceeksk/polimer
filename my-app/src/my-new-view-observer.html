@@ -65,7 +65,7 @@
 
         <h3>Hello))</h3>
 
-        <div id="result"></div>
+        <div id="result" style$="background: rgb([[red]], [[green]], [[blue]]);"></div>
         <p>[[red]]</p>
 
         <p>[[green]]</p>
@@ -100,17 +100,17 @@
                 }
             },
             listeners: {
-                'change': 'colorChanging',
+                /*'change': 'colorChanging',*/
                 'reset.tap': 'resetColors'
             },
-            colorChanging: function(){
+            /*colorChanging: function(){
                 this.$.result.style.backgroundColor = 'rgb(' + this.$.red.value + ',' + this.$.green.value + ',' + this.$.blue.value + ')';
-            },
+            },*/
             resetColors: function(){
                 this.red = 50;
                 this.green = 50;
                 this.blue = 50;
-                this.colorChanging();
+               /* this.colorChanging();*/
             }
         });
     </script>
