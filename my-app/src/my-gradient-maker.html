@@ -1,6 +1,9 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-slider/paper-slider.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
 
 <dom-module id="my-gradient-maker">
 
@@ -11,30 +14,50 @@
                 display: block;
                 padding: 16px;
             }
+
             ::shadow .slider-input {
                 width: 80px;
             }
-            #result{
+
+            #result {
                 width: 400px;
-                height: 50px;
+                height: 100px;
                 border: 1px solid;
             }
-            paper-input{
+
+            paper-input {
                 width: 200px;
+            }
+            .wrapper{
+                display: -webkit-flex;
             }
 
         </style>
-        <h1>Gradient Maker</h1>
+        <h3>Gradient Maker</h3>
 
-        <h3>Hello))</h3>
         <div id="result"></div>
         <p>background: <span>[[gradient]]</span>;</p>
-        <paper-slider class="first" min="0" max="100" value="{{first}}" editable></paper-slider>
-        <paper-slider class="second" min="0" max="100" value="{{second}}" editable></paper-slider>
-        <paper-slider class="third" min="0" max="100" value="{{third}}" editable></paper-slider>
-        <paper-input class="firstCol" label="first color" value="{{firstCol}}"></paper-input>
-        <paper-input class="secondCol" label="second color" value="{{secondCol}}"></paper-input>
-        <paper-input class="thirdCol" label="third color" value="{{thirdCol}}"></paper-input>
+        <p>[[typeG]]</p>
+        <paper-dropdown-menu id="typeOfGradMenu" label="Type of gradient" value="{{typeG}}">
+            <paper-listbox class="dropdown-content" selected="0">
+                <paper-item>Vertical</paper-item>
+                <paper-item>Gorizontal</paper-item>
+                <paper-item>Radial</paper-item>
+            </paper-listbox>
+        </paper-dropdown-menu>
+        <div class="wrapper">
+            <div>
+                <paper-input class="firstCol" label="first color" value="{{firstCol}}"></paper-input>
+                <paper-input class="secondCol" label="second color" value="{{secondCol}}"></paper-input>
+                <paper-input class="thirdCol" label="third color" value="{{thirdCol}}"></paper-input>
+            </div>
+            <div>
+                <paper-slider class="first" min="0" max="100" value="{{first}}" editable></paper-slider>
+                <paper-slider class="second" min="0" max="100" value="{{second}}" editable></paper-slider>
+                <paper-slider class="third" min="0" max="100" value="{{third}}" editable></paper-slider>
+            </div>
+        </div>
+
 
     </template>
 
@@ -70,16 +93,46 @@
                 gradient: {
                     type: String,
                     reflectToAttribute: true,
-                    computed: 'myGradient(first, second, third, firstCol, secondCol, thirdCol)',
+                    computed: 'myGradient(first, second, third, firstCol, secondCol, thirdCol, typeG)',
                     observer: 'updateResult'
+                },
+                typeG: {
+                    type: String,
+                    value: "left"
                 }
             },
-            myGradient: function(first, second, third, firstCol, secondCol, thirdCol){
-                return `-webkit-linear-gradient(left, ${firstCol} ${first}%, ${secondCol} ${second}%, ${thirdCol} ${third}%)`;
+            myGradient: function (first, second, third, firstCol, secondCol, thirdCol, typeG) {
+                switch(typeG) {
+                    case 'Vertical':
+                        typeG = "left";
+                        return `-webkit-linear-gradient(${typeG}, ${firstCol} ${first}%, ${secondCol} ${second}%, ${thirdCol} ${third}%)`;
+                    case 'Gorizontal':
+                        typeG = "top";
+                        return `-webkit-linear-gradient(${typeG}, ${firstCol} ${first}%, ${secondCol} ${second}%, ${thirdCol} ${third}%)`;
+                    case 'Radial':
+                        typeG = "center, ellipse cover";
+                        return `-webkit-radial-gradient(${typeG}, ${firstCol} ${first}%, ${secondCol} ${second}%, ${thirdCol} ${third}%)`;
+                }
             },
 
-            updateResult: function(){
+            updateResult: function () {
                 this.$.result.style.background = this.gradient;
+            },
+
+            updateType: function (a,b) {
+                console.log(a,b);
+                switch([typeGradient]) {
+                    case 'Vertical':
+                        typeG = "left";
+                        alert("1");
+                        break;
+                    case 'Gorizontal':
+                        alert("2");
+                        break;
+                    default:
+                    alert("3");
+                        break;
+                }
             }
 
         });
