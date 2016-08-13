@@ -1,4 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 
 <dom-module id="my-gradient-maker">
 
@@ -9,19 +11,77 @@
                 display: block;
                 padding: 16px;
             }
+            ::shadow .slider-input {
+                width: 80px;
+            }
+            #result{
+                width: 400px;
+                height: 50px;
+                border: 1px solid;
+            }
+            paper-input{
+                width: 200px;
+            }
 
         </style>
         <h1>Gradient Maker</h1>
 
         <h3>Hello))</h3>
-
+        <div id="result"></div>
+        <p>background: <span>[[gradient]]</span>;</p>
+        <paper-slider class="first" min="0" max="100" value="{{first}}" editable></paper-slider>
+        <paper-slider class="second" min="0" max="100" value="{{second}}" editable></paper-slider>
+        <paper-slider class="third" min="0" max="100" value="{{third}}" editable></paper-slider>
+        <paper-input class="firstCol" label="first color" value="{{firstCol}}"></paper-input>
+        <paper-input class="secondCol" label="second color" value="{{secondCol}}"></paper-input>
+        <paper-input class="thirdCol" label="third color" value="{{thirdCol}}"></paper-input>
 
     </template>
 
     <!-- Creates the element's prototype and registers it -->
     <script>
         Polymer({
-            is: 'my-gradient-maker'
+            is: 'my-gradient-maker',
+            properties: {
+                first: {
+                    type: Number,
+                    value: 0
+                },
+                second: {
+                    type: Number,
+                    value: 50
+                },
+                third: {
+                    type: Number,
+                    value: 100
+                },
+                firstCol: {
+                    type: String,
+                    value: "#ffffff"
+                },
+                secondCol: {
+                    type: String,
+                    value: "red"
+                },
+                thirdCol: {
+                    type: String,
+                    value: "#ffffff"
+                },
+                gradient: {
+                    type: String,
+                    reflectToAttribute: true,
+                    computed: 'myGradient(first, second, third, firstCol, secondCol, thirdCol)',
+                    observer: 'updateResult'
+                }
+            },
+            myGradient: function(first, second, third, firstCol, secondCol, thirdCol){
+                return `-webkit-linear-gradient(left, ${firstCol} ${first}%, ${secondCol} ${second}%, ${thirdCol} ${third}%)`;
+            },
+
+            updateResult: function(){
+                this.$.result.style.background = this.gradient;
+            }
+
         });
     </script>
 </dom-module>
