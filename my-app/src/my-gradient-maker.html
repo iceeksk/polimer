@@ -30,6 +30,15 @@
             }
             .wrapper{
                 display: -webkit-flex;
+                flex-direction: column;
+            }
+            .wrapper > div{
+                display: -webkit-flex;
+                height: 80px;
+            }
+            ::shadow #sliderContainer.editable {
+                margin-top: 24px;
+                margin-bottom: 0px;
             }
 
         </style>
@@ -37,7 +46,7 @@
 
         <div id="result"></div>
         <p>background: <span>[[gradient]]</span>;</p>
-        <p>[[typeG]]</p>
+        <!--<p>[[typeG]]</p>-->
         <paper-dropdown-menu id="typeOfGradMenu" label="Type of gradient" value="{{typeG}}">
             <paper-listbox class="dropdown-content" selected="0">
                 <paper-item>Vertical</paper-item>
@@ -48,12 +57,14 @@
         <div class="wrapper">
             <div>
                 <paper-input class="firstCol" label="first color" value="{{firstCol}}"></paper-input>
-                <paper-input class="secondCol" label="second color" value="{{secondCol}}"></paper-input>
-                <paper-input class="thirdCol" label="third color" value="{{thirdCol}}"></paper-input>
+                <paper-slider class="first" min="0" max="100" value="{{first}}" editable></paper-slider>
             </div>
             <div>
-                <paper-slider class="first" min="0" max="100" value="{{first}}" editable></paper-slider>
+                <paper-input class="secondCol" label="second color" value="{{secondCol}}"></paper-input>
                 <paper-slider class="second" min="0" max="100" value="{{second}}" editable></paper-slider>
+            </div>
+            <div>
+                <paper-input class="thirdCol" label="third color" value="{{thirdCol}}"></paper-input>
                 <paper-slider class="third" min="0" max="100" value="{{third}}" editable></paper-slider>
             </div>
         </div>
